@@ -1,0 +1,6 @@
+Chess piece artwork by Colin M. L. Burnett, distributed via the Lichess project.
+Original source: https://github.com/lichess-org/lila/tree/master/public/piece/cburnett
+License: GNU General Public License, version 2 or any later version.
+The original SVG artwork is provided unmodified alongside this notice.
+License attribution: https://github.com/lichess-org/lila/blob/master/COPYING.md
+License text: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
