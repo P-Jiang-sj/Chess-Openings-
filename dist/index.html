@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+ <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="theme-color" content="#254c3c"><meta name="description" content="PJ和VLZ的棋谱：国际象棋开局库。点选每一步查看棋盘，展开变招树，探索 3,865 条开局与变化，再与可选难度的机器人继续对弈。">
+ <title>PJ和VLZ的棋谱</title>
+ <link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="./tree.css"><link rel="stylesheet" href="./opponent.css"><link rel="stylesheet" href="./compact.css">
+</head>
+<body>
+ <aside class="sidebar">
+  <a class="brand" href="./" aria-label="PJ和VLZ的棋谱首页"><span class="brand-mark">♞</span><span><b>PJ和VLZ的棋谱</b></span></a>
+  <nav class="primary-nav" aria-label="主导航">
+   <button class="nav-item active" data-view="library"><i data-icon="book"></i>开局图书馆<span class="nav-indicator"></span></button>
+   <button class="nav-item" data-view="favorites"><i data-icon="star"></i>我的收藏<span id="favorite-count" class="nav-count">0</span></button>
+   <button class="nav-item" id="guide-open"><i data-icon="compass"></i>使用指南</button>
+  </nav>
+  <div class="sidebar-rule"></div>
+  <div class="nav-caption category-heading">按第一步探索</div>
+  <nav class="category-nav" aria-label="首着分类">
+   <button class="category-link" data-category="e4"><span class="category-symbol">♙</span>王兵开局<span class="notation">e4</span></button>
+   <button class="category-link" data-category="d4"><span class="category-symbol">♙</span>后兵开局<span class="notation">d4</span></button>
+   <button class="category-link" data-category="flank"><span class="category-symbol">♘</span>侧翼开局<span class="notation">c4 / Nf3</span></button>
+   <button class="category-link" data-category="other"><span class="category-symbol">♗</span>其他开局<span class="notation">…</span></button>
+  </nav>
+  <div class="sidebar-bottom">
+   <a class="source-link" href="https://github.com/lichess-org/chess-openings" target="_blank" rel="noopener"><span class="source-dot"></span>开局数据来自 Lichess<i data-icon="external"></i></a>
+  </div>
+ </aside>
+ <main>
+  <header class="topbar"><div class="breadcrumb">学习空间<span>/</span><strong>开局图书馆</strong></div><div class="header-actions"><span class="opening-total"><span id="total-stat">3,865</span> 条开局</span><button id="cover-open" class="cover-button" aria-label="打开 PJ &amp; VLZ 爱心封面"><span aria-hidden="true">♥</span> PJ &amp; VLZ</button></div></header>
+  <div class="workspace">
+   <section class="study-panel" aria-label="开局演示">
+    <div class="section-heading"><span><span class="section-dot"></span>开局演示</span><button class="text-button" id="random-opening"><i data-icon="shuffle"></i>随机探索</button></div>
+    <article class="opening-details"><div class="detail-title-row"><div><div class="eyebrow">正在探索 <span id="selected-eco">C50</span></div><h2 id="selected-title">意大利开局</h2></div><button id="favorite-selected" class="icon-button favorite-selected" aria-label="收藏当前开局"><i data-icon="star"></i></button></div><p id="selected-description" class="opening-description"></p></article>
+    <div class="board-card">
+     <div class="board-player"><div class="player-info"><span class="player-avatar black-avatar">♚</span><span id="top-player">黑方</span><span class="player-tag">BLACK</span></div><button class="icon-button" id="flip-board" aria-label="翻转棋盘" title="翻转棋盘（F）"><i data-icon="flip"></i></button></div>
+     <div class="board-viewport"><div id="board" class="chessboard" role="group" aria-label="国际象棋棋盘"></div></div>
+     <div class="board-player bottom-player"><div class="player-info"><span class="player-avatar white-avatar">♔</span><span id="bottom-player">白方</span><span class="player-tag">WHITE</span></div><span id="turn-label" class="turn-label"><span class="turn-dot"></span>白方走棋</span></div>
+     <div class="board-position"><span id="step-label" aria-live="polite"></span><span>点选棋谱，即刻跳转</span></div>
+    </div>
+    <p class="keyboard-hint"><i data-icon="keyboard"></i><span>点选任意着法查看局面</span><span>← → 切换着法</span><span>F 翻转</span></p>
+   </section>
+   <section class="inspector" aria-label="棋谱与变招">
+    <div class="inspector-tabs" role="tablist" aria-label="学习视图"><button id="steps-tab" class="active" role="tab" aria-selected="true" aria-controls="steps-panel" data-panel="steps">步骤</button><button id="tree-tab" role="tab" aria-selected="false" aria-controls="tree-panel" data-panel="tree">变招树</button><button id="library-tab" role="tab" aria-selected="false" aria-controls="library-panel" data-panel="library">开局库</button></div>
+    <section id="steps-panel" class="notation-panel" role="tabpanel" aria-labelledby="steps-tab"><div class="section-heading"><span>完整着法<span class="count-pill" id="move-count"></span></span><span class="little-caption">从第一步到最后一步，任意点选</span></div><div class="notation-table-head"><span>步数</span><span>执棋方</span><span>记谱</span><span>具体走法</span></div><div id="move-list" class="notation-list" tabindex="0" aria-label="开局棋谱，可独立滚动"></div><div class="continue-card"><div><p id="continue-caption"></p></div><button id="continue-game" class="continue-button" disabled>继续与机器人对弈 <span>↗</span></button></div></section>
+    <section id="tree-panel" class="tree-panel" role="tabpanel" aria-labelledby="tree-tab" tabindex="0" hidden><div class="variation-heading"><h3 id="variations-title">常见变例</h3><span id="variation-count"></span></div><div id="common-variations" class="common-variations"></div><div class="tree-heading"><h3 id="tree-title">当前局面的变招</h3><button id="tree-recenter" class="text-button">以当前局面为起点</button></div><p class="tree-help">点击走法跳到局面；点击箭头展开下一层。</p><nav id="tree-breadcrumb" class="tree-breadcrumb" aria-label="变招树起点路径"></nav><div class="tree-root-caption" id="tree-root-caption"></div><div id="variation-tree" class="variation-tree" aria-label="可展开的走法分支"></div><p class="tree-data-note">分支旁的数字是收录棋谱条数，不代表胜率。按着法顺序分支，不合并移步同形。</p></section>
+    <section id="library-panel" class="explorer" role="tabpanel" aria-labelledby="library-tab" hidden><div class="section-heading"><span id="explorer-title">探索开局<span class="count-pill" id="result-count">3,865</span></span><span class="little-caption">选择一个开局，查看完整着法</span></div>
+    <div class="searchbox"><i data-icon="search"></i><input id="search" type="search" placeholder="搜索开局名称、ECO 或走法…" aria-label="搜索开局"><kbd>/</kbd></div>
+    <div class="filter-row"><div class="tabs" role="tablist" aria-label="开局范围"><button class="tab active" data-tab="featured" role="tab" aria-selected="true">精选开局</button><button class="tab" data-tab="all" role="tab" aria-selected="false">全部开局</button></div><select id="eco-filter" aria-label="ECO 分类"><option value="">全部 ECO</option><option value="A">A · 侧翼与其他</option><option value="B">B · 半开放开局</option><option value="C">C · 开放及法兰西</option><option value="D">D · 后兵开局</option><option value="E">E · 印度防御</option></select></div>
+    <div id="active-filter" class="active-filter" hidden></div><div class="list-caption"><span id="list-caption">精选开局</span><span>点击卡片，即刻演示</span></div>
+    <div id="opening-list" class="opening-list" tabindex="0" aria-label="开局列表，可独立滚动" aria-live="polite"><div class="loading">正在打开开局图书馆…</div></div>
+    <div class="pagination" id="pagination"><button id="page-prev" class="text-button"><i data-icon="left"></i>上一页</button><span id="page-label"></span><button id="page-next" class="text-button">下一页<i data-icon="right"></i></button></div>
+   </section>
+   </section>
+  </div>
+  <footer><span>PJ和VLZ的棋谱</span><button class="text-button" id="about-open">数据与说明<i data-icon="external"></i></button></footer>
+ </main>
+ <dialog id="cover-dialog" aria-label="PJ &amp; VLZ 爱心封面"><button id="cover-close" class="dialog-close icon-button" aria-label="关闭爱心封面">×</button>
+  <section class="dedication-cover" aria-label="PJ &amp; VLZ 爱心封面">
+   <span class="cover-spark cover-spark-left" aria-hidden="true">✧</span>
+   <svg class="dedication-heart" viewBox="0 0 480 370" role="img" aria-labelledby="dedication-title">
+    <title id="dedication-title">PJ &amp; VLZ</title>
+    <defs><linearGradient id="heart-rose" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d9919b"/><stop offset="100%" stop-color="#b85368"/></linearGradient><filter id="heart-shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#ad5666" flood-opacity=".12"/></filter></defs>
+    <path d="M240 338C219 319 45 216 45 119C45 43 129 14 183 52C210 71 228 92 240 108C252 92 270 71 297 52C351 14 435 43 435 119C435 216 261 319 240 338Z" fill="url(#heart-rose)" filter="url(#heart-shadow)"/>
+    <path d="M240 338C219 319 45 216 45 119C45 43 129 14 183 52C210 71 228 92 240 108C252 92 270 71 297 52C351 14 435 43 435 119C435 216 261 319 240 338Z" transform="translate(24 18) scale(.9)" fill="none" stroke="#fff5ed" stroke-opacity=".36" stroke-width="1.25"/>
+    <text x="240" y="180" text-anchor="middle" class="dedication-names">PJ &amp; VLZ</text>
+   </svg>
+   <span class="cover-spark cover-spark-right" aria-hidden="true">✧</span>
+  </section>
+ </dialog>
+ <dialog id="opponent-setup" aria-labelledby="opponent-setup-title"><button id="opponent-setup-close" class="dialog-close icon-button" aria-label="关闭对手设置">×</button><h2 id="opponent-setup-title">对手设置</h2><p>从「<span id="opponent-opening-name"></span>」的结束局面开始。</p><fieldset class="opponent-levels"><legend>选择对手难度</legend><label class="opponent-level"><input type="radio" name="opponent-level" value="800"><span class="level-piece">♙</span><strong>800</strong><span>入门棋友</span></label><label class="opponent-level"><input type="radio" name="opponent-level" value="1200" checked><span class="level-piece">♘</span><strong>1200</strong><span>进阶棋友</span></label><label class="opponent-level"><input type="radio" name="opponent-level" value="1500"><span class="level-piece">♜</span><strong>1500</strong><span>思考型棋手</span></label></fieldset><fieldset class="opponent-sides"><legend>你执哪一方？</legend><label><input type="radio" name="opponent-side" value="w" checked><span>♔</span>我执白方</label><label><input type="radio" name="opponent-side" value="b"><span>♚</span>我执黑方</label></fieldset><p class="elo-note">ELO 是近似难度参考，并非平台实测评级。低难度会增加失误；实际棋力会因局面与设备而变化。</p><button id="opponent-start" class="primary-button">开始对弈 <span>→</span></button></dialog>
+ <dialog id="opponent-game" aria-labelledby="match-title"><header class="match-heading"><div><h2 id="match-title">机器人对弈</h2></div><button id="match-close" class="text-button">返回开局学习 ×</button></header><div class="match-layout"><section class="match-board-section"><div class="match-player"><span class="match-avatar">♞</span><strong id="match-opponent-name"></strong><small id="match-opponent-color"></small></div><div class="match-board-wrap"><div id="match-board" class="chessboard" role="group" aria-label="与机器人对弈的棋盘"></div><div id="match-promotion" class="match-promotion" role="dialog" aria-label="选择升变棋子" hidden><strong>选择升变棋子</strong><div id="match-promotion-options"></div></div></div><div class="match-player"><span class="match-avatar human-avatar">♔</span><strong id="match-human-name"></strong></div><p id="match-status" class="match-status" role="status"></p><button id="match-retry" class="text-button" hidden>重试机器人</button></section><aside class="match-sidebar"><span id="match-level" class="match-level"></span><h3 id="match-opening-name"></h3><div class="match-history-heading"><span>完整对局记录</span><span>着法</span></div><ol id="match-history" class="match-history" aria-label="机器人对弈着法记录"></ol><div class="match-actions"><button id="match-undo">悔棋</button><button id="match-restart">从开局局面重来</button></div><p class="match-engine-note">Stockfish 本地引擎 · 无需 API 密钥<br>ELO 为难度参考，非实测评级。<br><a href="https://github.com/nmrugg/stockfish.js/tree/v19.0.1" target="_blank" rel="noopener">引擎源码与说明</a> · <a href="./vendor/stockfish/COPYING.txt" target="_blank" rel="noopener">GPL-3.0</a></p></aside></div></dialog>
+ <dialog id="guide"><button class="dialog-close icon-button" aria-label="关闭指南"><i data-icon="close"></i></button><h2>使用指南</h2><p>棋盘固定在左侧，右侧可切换「步骤」「变招树」「开局库」。列表可单独滚动，任意一步都可以直接点击。</p><div class="guide-step"><b>01</b><div><h3>找到感兴趣的开局</h3><p>打开「开局库」，按名称、ECO 编号或走法搜索；支持「西西里」「纳道尔夫」「B90」「e4 c5」等关键词。侧栏可以按第一步分类。</p></div></div><div class="guide-step"><b>02</b><div><h3>直接选择任意一步</h3><p>完整着法列出步数、执棋方、标准记谱与中文走法说明。点击第 1 步后可以直接点击第 5 步，棋盘立即显示对应局面。每一步是白方或黑方的一次走子；「1.」与「1...」分别表示第一回合的白方与黑方着法。</p></div></div><div class="guide-step"><b>03</b><div><h3>沿着变招树探索</h3><p>点击着法后，树会以这一步的局面为起点。点击箭头展开后续层级，点击树中的走法跳到那个局面。上方有常见变例入口；切换变例时，完整着法也会更新。点击路径中的任何一步可以回到较早的分支。</p></div></div><div class="guide-step" id="guide-opponent"><b>04</b><div><h3>从开局继续，与机器人对弈</h3><p>点选棋谱的最后一步后，点击「继续与机器人对弈」，选择参考 ELO 800、1200 或 1500，再选择执白或执黑。机器人会在轮到它时自动走棋。对弈界面支持合法落点提示、升变、悔棋与重新开始；返回学习页后，仍可点选棋谱和变招树。</p></div></div><div class="attribution"><b>关于数据</b><p>3,865 条命名开局及变化来自 <a href="https://github.com/lichess-org/chess-openings" target="_blank" rel="noopener">Lichess 开局数据库</a>（CC0，2026-10-17 获取）。同名开局可能包含不同着法顺序；这不是全部可能开局的穷举。变招树仅使用收录棋谱中的走法，按着法顺序连接，不合并移步同形。分支数量是数据条数，不代表实战频率、胜率或引擎评价。常见体系和变例提供中文名称，较少见变化保留原文。</p><p>走法校验：<a href="https://github.com/jhlywa/chess.js" target="_blank" rel="noopener">chess.js</a>（BSD-2-Clause）。棋子图形：Colin M. L. Burnett，<a href="https://github.com/lichess-org/lila/blob/master/COPYING.md" target="_blank" rel="noopener">Lichess / cburnett</a>（GPL-2.0-or-later）。收藏仅保存在当前浏览器。</p></div><button class="primary-button" id="guide-start">开始探索<i data-icon="right"></i></button></dialog>
+ <div id="toast" class="toast" role="status"></div>
+ <script type="module" src="./app.js"></script>
+</body>
+</html>
