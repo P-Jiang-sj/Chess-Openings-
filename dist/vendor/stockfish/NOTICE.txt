@@ -1,0 +1,4 @@
+Stockfish.js 19.0.1 lite single-threaded engine. Copyright the Stockfish developers, Nathan Rugg and contributors. GPL-3.0.
+Unmodified engine binaries: https://github.com/nmrugg/stockfish.js/releases/tag/v19.0.1
+Corresponding source and build instructions: https://github.com/nmrugg/stockfish.js/tree/v19.0.1
+Source archive: https://github.com/nmrugg/stockfish.js/archive/refs/tags/v19.0.1.tar.gz
