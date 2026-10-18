@@ -1,0 +1,9 @@
+node_modules/
+*.zip
+.sites-runtime/
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
